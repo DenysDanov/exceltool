@@ -1,1 +1,1 @@
-gunicorn --workers=3 exceltool.wsgi
+web: gunicorn --workers=3 exceltool.wsgi
