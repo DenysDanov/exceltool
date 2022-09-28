@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-+k#@%%vrg0qhgf=*n#d%nfz4e18s3ko=*1juxqecvjf5w71++#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['exceltool.herokuapp.com']
 
 
 # Application definition
