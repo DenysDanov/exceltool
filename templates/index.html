@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel tool</title>
+    <style>
+        body{
+            background-color: #1D6F42;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+            font-size: large;
+            font-weight: 400;
+        }
+        label{
+            cursor: pointer;
+            display: flex;
+            justify-items: baseline;
+        }
+        label>*{
+            margin: 10px;
+        }
+        .modal{
+            padding: 50px;
+            background: white;
+            position: fixed; top: 50%; left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            border-radius: 5px;
+            }
+        form{display: flex; flex-direction: column;}
+        form>*{
+            margin:10px;
+
+        }
+        button{
+            cursor: pointer;
+            margin-top: 20px;
+            color: white;
+            background-color: #1D6F42;
+            border: 0;
+            border-radius: 5px;
+            padding: 15px 0px;
+        }
+        img{margin: auto;}
+        .hidden{
+            display: none;
+        }
+    </style>
+    <script>
+        let send = () => {
+            let f = document.getElementById("id_file").files[0];
+            let req = new XMLHttpRequest();
+            let formData = new FormData();
+
+            formData.append("file", f);                                
+            formData.append("csrfmiddlewaretoken", document.getElementsByName('csrfmiddlewaretoken')[0].value);                                
+            req.open("POST", '/process/');
+            req.send(formData);
+            let link = document.getElementById('download')
+            link.classList.remove('hidden')
+            link.attributes.href.nodeValue = `media/${f.name}`
+        }
+    </script>
+</head>
+<body>
+    <div class="modal">
+        <form action="process/" method="post"  enctype="multipart/form-data">
+            {% csrf_token %}
+            <img src="media/logo.png" width="24px" height="24px">
+            {{ form.as_p}}
+            <!-- <input type="file" name="file" id="file_input" class="hidden"> -->
+            
+            <button type="button" onclick="send()">Submit</button>
+        </form>
+        <a href="/media/" id='download' class='hidden'>Download file</a>
+    </div>
+</body>
+</html>
