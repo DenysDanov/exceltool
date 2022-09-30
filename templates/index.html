@@ -77,13 +77,13 @@
                 var delta = Date.now() - start; 
                 time = TIMER - Math.floor(delta / 1000)
                 timer.innerText = time
-                
+                if(time <= 0){
+                    timer.classList.add('hidden')
+                    show_link()
+                    clearInterval(inter);
+                }
             }, 1000);
-            if(time <= 0){
-                timer.classList.add('hidden')
-                show_link()
-                clearInterval(inter);
-            }
+            
             
         }
         window.onload = () => {
@@ -101,7 +101,7 @@
             
             <button type="button" id='sbtn'>Submit</button>
         </form>
-        <p id="timer" class='hidden'>30</p>
+        <p id="timer" class='hidden'></p>
         <a href="/media/" id='download' class='hidden'>Download file</a>
     </div>
 </body>
