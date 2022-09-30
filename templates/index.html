@@ -59,8 +59,28 @@
             req.open("POST", '/process/');
             req.send(formData);
             let link = document.getElementById('download')
-            link.classList.remove('hidden')
+            
             link.attributes.href.nodeValue = `media/${f.name}`
+            timer()
+        }
+        let show_link = () => {
+            let link = document.getElementById('download')
+            link.classList.remove('hidden')
+        }
+        let timer = () => {
+            let timer = document.getElementById('timer')
+            timer.classList.remove('hidden')
+            var start = Date.now();
+            setInterval(function() {
+                var delta = Date.now() - start; 
+                let time = 30 - Math.floor(delta / 1000)
+                timer.innerText = time
+                timer.classList.add('hidden')
+                if (time == 0){
+                    show_link()
+                    break
+                }
+            }, 1000);
         }
     </script>
 </head>
@@ -74,6 +94,7 @@
             
             <button type="button" onclick="send()">Submit</button>
         </form>
+        <p id="timer" class='hidden'>30</p>
         <a href="/media/" id='download' class='hidden'>Download file</a>
     </div>
 </body>
