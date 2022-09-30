@@ -71,16 +71,18 @@
             let timer = document.getElementById('timer')
             timer.classList.remove('hidden')
             var start = Date.now();
-            setInterval(function() {
+            let inter = setInterval(function() {
                 var delta = Date.now() - start; 
                 let time = 30 - Math.floor(delta / 1000)
                 timer.innerText = time
-                timer.classList.add('hidden')
-                if (time == 0){
-                    show_link()
-                    break
-                }
+                
             }, 1000);
+            if(timer.innerText == 0){
+                timer.classList.add('hidden')
+                show_link()
+                clearInterval(inter);
+            }
+            
         }
         window.onload = () => {
             document.getElementById("sbtn").addEventListener ("click", send, false);
